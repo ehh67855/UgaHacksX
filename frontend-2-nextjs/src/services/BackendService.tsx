@@ -30,16 +30,16 @@ export const isAuthenticated = async (): Promise<boolean> => {
 };
 
 export const isAdmin = async (token: string | null): Promise<boolean> => {
-  if (token == null) {
+  if (token === null) {
     return false;
   }
   const decoded = jwtDecode<CustomJwtPayload>(token);
-  return decoded.role == "ADMIN";
+  return decoded.role === "ADMIN";
 };
 
 export const isUser = async (token: string): Promise<boolean> => {
   const decoded = jwtDecode<CustomJwtPayload>(token);
-  return decoded.role == "USER";
+  return decoded.role === "USER";
 };
 
 export const getLogin = async (token: string): Promise<string | undefined> => {
