@@ -27,6 +27,13 @@ export default function Header() {
         }
                             }>Logout</Button>
                             <Button variant="outline-primary" className="mx-2 my-1" href="/edit-profile">Edit Profile</Button>
+                            <Button 
+                                variant="outline-info" 
+                                className="mx-2 my-1" 
+                                onClick={() => navigate('/myprojects')}
+                            >
+                                My Projects
+                            </Button>
                         </>
                     ) : (
                         <>
