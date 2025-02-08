@@ -70,4 +70,9 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/edit-profile")
+    public ResponseEntity<UserDto> editProfile(@RequestBody @Valid SignUpDto userDto) {
+        return ResponseEntity.ok(userService.editProfile(userDto));
+    }
+
 }

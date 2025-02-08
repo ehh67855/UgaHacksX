@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { getAuthToken, getLogin } from 'src/services/BackendService';
 
@@ -53,14 +53,42 @@ export default function MyProjects() {
                                     Posted on {project.datePosted}
                                 </Card.Subtitle>
                                 <Card.Text>{project.description}</Card.Text>
-                                <Button variant="primary" href={`/project/${project.id}`} className="me-2">
+                                <Button 
+                                    as={Link} 
+                                    to={`/myprojects/${project.id}/versions`} 
+                                    variant="primary"
+                                    className="me-2"
+                                >
                                     View More
                                 </Button>
-                                <Button variant="outline-danger" onClick={() => {
-                                    if (window.confirm('Are you sure you want to delete this project?')) {
-                                        console.log('Delete project:', project.id);
-                                    }
-                                }}>
+                                <Button 
+                                    variant="outline-danger" 
+                                    onClick={async () => {
+                                        if (window.confirm('Are you sure you want to delete this project?')) {
+                                            try {
+                                                const response = await fetch(
+                                                    `http://localhost:8080/api/projects/${project.id}/delete?login=${userLogin}`,
+                                                    {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Authorization': `Bearer ${getAuthToken()}`
+                                                        }
+                                                    }
+                                                );
+                                                
+                                                if (!response.ok) {
+                                                    throw new Error('Failed to delete project');
+                                                }
+                                                
+                                                setProjects(currentProjects => 
+                                                    currentProjects.filter(p => p.id !== project.id)
+                                                );
+                                            } catch (error) {
+                                                setError(error.message);
+                                            }
+                                        }
+                                    }}
+                                >
                                     Delete
                                 </Button>
                             </Card.Body>

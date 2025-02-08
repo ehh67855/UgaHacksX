@@ -75,4 +75,44 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    public ProjectVersion addProjectVersion(Long projectId, MultipartFile file) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
+    
+        ProjectVersion projectVersion = new ProjectVersion();
+        projectVersion.setProject(project);
+        projectVersion.setName(file.getOriginalFilename());
+    
+        try {
+            projectVersion.setBlobData(file.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to process file", e);
+        }
+    
+        return projectVersionRepository.save(projectVersion);
+    }
+
+    public void deleteProject(Long projectId, String login) {
+        // Find the project
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
+        
+        // Verify ownership
+        if (!project.getOwner().getLogin().equals(login)) {
+            throw new RuntimeException("User is not authorized to delete this project");
+        }
+        
+        try {
+            // Delete associated versions first
+            List<ProjectVersion> versions = projectVersionRepository.findByProjectOrderByIdDesc(project);
+            projectVersionRepository.deleteAll(versions);
+            
+            // Delete the project
+            projectRepository.delete(project);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete project: " + e.getMessage());
+        }
+    }
+    
+
 }

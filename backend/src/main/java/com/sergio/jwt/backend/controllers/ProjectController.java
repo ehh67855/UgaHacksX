@@ -1,23 +1,21 @@
 package com.sergio.jwt.backend.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
 
 import com.sergio.jwt.backend.entites.Project;
 import com.sergio.jwt.backend.entites.ProjectVersion;
-import com.sergio.jwt.backend.repositories.ProjectRepository;
 import com.sergio.jwt.backend.services.ProjectService;
 
 @RestController
@@ -63,7 +61,26 @@ public class ProjectController {
         List<Project> projects = projectService.getAllProjects();
         return ResponseEntity.ok(projects);
     }
-
     
+    @PostMapping("/{projectId}/upload")
+    public ResponseEntity<ProjectVersion> uploadProjectVersion(
+            @PathVariable Long projectId,
+            @RequestParam("file") MultipartFile file) {
+
+        ProjectVersion newVersion = projectService.addProjectVersion(projectId, file);
+        return ResponseEntity.ok(newVersion);
+    }
+
+    @PostMapping("/{projectId}/delete")
+    public ResponseEntity<?> deleteProject(
+            @PathVariable Long projectId,
+            @RequestParam String login) {
+        try {
+            projectService.deleteProject(projectId, login);
+            return ResponseEntity.ok().body("Project deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 }
