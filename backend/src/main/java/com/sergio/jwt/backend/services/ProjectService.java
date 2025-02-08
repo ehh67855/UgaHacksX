@@ -2,6 +2,8 @@ package com.sergio.jwt.backend.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import java.nio.file.Path;
@@ -18,44 +20,59 @@ import com.sergio.jwt.backend.entites.User;
 import com.sergio.jwt.backend.repositories.ProjectRepository;
 import com.sergio.jwt.backend.repositories.ProjectVersionRepository;
 import com.sergio.jwt.backend.repositories.UserRepository;
-
 @Service
 public class ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+    
+    @Autowired
+    private ProjectVersionRepository projectVersionRepository; // Fix: Changed type from ProjectRepository
 
     @Autowired
     private UserRepository userRepository;
 
+    
     public Project createProject(String name, String description, MultipartFile file, String login) {
-        // Retrieve the user from the database
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new RuntimeException("User not found with login: " + login));
     
-        // Create a new project
         Project project = new Project();
         project.setName(name);
         project.setDescription(description);
         project.setOwner(user);
     
-        // Create the initial project version
         ProjectVersion projectVersion = new ProjectVersion();
-        projectVersion.setName(file.getOriginalFilename()); // Use file name
+        projectVersion.setName(file.getOriginalFilename());
         try {
-            projectVersion.setBlobData(file.getBytes()); // Store file as binary data
+            projectVersion.setBlobData(file.getBytes());
         } catch (IOException e) {
             throw new RuntimeException("File processing failed", e);
         }
     
         projectVersion.setProject(project);
-    
-        // Add the version to the project's list
         project.getProjectVersions().add(projectVersion);
     
-        // Save the project (cascades will save ProjectVersion)
         return projectRepository.save(project);
     }
-    
-}
 
+    public List<Project> getProjectsByUserLogin(String login) {
+        return projectRepository.findByOwnerLogin(login);
+    }
+
+    public List<ProjectVersion> getVersionsByProjectId(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+            .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
+        return projectVersionRepository.findByProjectOrderByIdDesc(project);
+    }
+
+    public ProjectVersion getVersionById(Long versionId) {
+        return projectVersionRepository.findById(versionId)
+            .orElseThrow(() -> new RuntimeException("Version not found with id: " + versionId));
+    }
+
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
+    }
+
+}

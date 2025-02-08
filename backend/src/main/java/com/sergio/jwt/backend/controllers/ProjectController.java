@@ -1,5 +1,6 @@
 package com.sergio.jwt.backend.controllers;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import com.sergio.jwt.backend.entites.Project;
+import com.sergio.jwt.backend.entites.ProjectVersion;
 import com.sergio.jwt.backend.repositories.ProjectRepository;
 import com.sergio.jwt.backend.services.ProjectService;
 
@@ -29,16 +32,38 @@ public class ProjectController {
             @RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam("file") MultipartFile file,
-            @RequestParam("login") String login) { // 'login' is passed, assuming it represents user identification
+            @RequestParam("login") String login) {
 
-        // Log the user login received
-        System.out.println("Received login: " + login);
-
-        // Create and save the project using the service
         Project savedProject = projectService.createProject(name, description, file, login);
-
-        System.out.println("Project created: " + savedProject.getName());
-        
         return ResponseEntity.ok(savedProject);
     }
+
+    @GetMapping("/{login}")
+    public ResponseEntity<List<Project>> getUserProjects(@PathVariable String login) {
+        List<Project> projects = projectService.getProjectsByUserLogin(login);
+        return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/{projectId}/versions")
+    public ResponseEntity<List<ProjectVersion>> getProjectVersions(@PathVariable Long projectId) {
+        List<ProjectVersion> versions = projectService.getVersionsByProjectId(projectId);
+        return ResponseEntity.ok(versions);
+    }
+
+    @GetMapping("/download/{versionId}")
+    public ResponseEntity<byte[]> downloadVersion(@PathVariable Long versionId) {
+        ProjectVersion version = projectService.getVersionById(versionId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + version.getName() + ".zip\"")
+                .body(version.getBlobData());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Project>> getAllProjects() {
+        List<Project> projects = projectService.getAllProjects();
+        return ResponseEntity.ok(projects);
+    }
+
+    
+
 }

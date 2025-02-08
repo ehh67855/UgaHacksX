@@ -16,7 +16,7 @@ const AppRoutes = () => {
     let routes = useRoutes([
       {
         path: '/',
-        element: <LayoutPage><Outlet /></LayoutPage>, // Wrap Outlet inside LayoutPage
+        element: <LayoutPage><Outlet /></LayoutPage>,
         children: [
           { index: true, element: <App /> },
           { path: 'login', element: <Login /> },
@@ -35,5 +35,4 @@ const AppRoutes = () => {
     return routes;
 };
 
-  
 export default AppRoutes;
