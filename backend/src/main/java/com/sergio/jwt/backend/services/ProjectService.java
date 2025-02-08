@@ -71,4 +71,8 @@ public class ProjectService {
             .orElseThrow(() -> new RuntimeException("Version not found with id: " + versionId));
     }
 
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
+    }
+
 }
