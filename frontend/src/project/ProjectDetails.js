@@ -139,7 +139,7 @@ export default function ProjectDetails() {
                 <Card.Body>
                     <Card.Title as="h2">{project.name}</Card.Title>
                     <Card.Subtitle className="mb-3 text-muted">
-                        Posted by {project.name}
+                        Posted by {project.owner?.firstName + " " + project.owner?.lastName || 'Unknown user'}
                     </Card.Subtitle>
                     <Card.Text>{project.description}</Card.Text>
                 </Card.Body>
@@ -155,9 +155,6 @@ export default function ProjectDetails() {
                                 <Row className="align-items-center">
                                     <Col md={8}>
                                         <h5>{version.name}</h5>
-                                        <p className="text-muted mb-0">
-                                            Uploaded on {new Date(version.uploadDate).toLocaleString()}
-                                        </p>
                                     </Col>
                                     <Col md={4} className="text-md-end mt-2 mt-md-0">
                                         <Button 
