@@ -12,6 +12,9 @@ import NewProject from "src/NewProject/newproject";
 import MyProjects from "src/MyProjects/myprojects";
 import VersionUploads from "src/VersionUploads/versionuploads"; 
 import ProjectDetails from "src/project/ProjectDetails";
+import EditProfileForm from "src/register/EditProfile";
+import EditProfileConfirmation from "src/register/EditProfileConfirmation";
+
 
 const AppRoutes = () => {
     let routes = useRoutes([
@@ -29,6 +32,8 @@ const AppRoutes = () => {
           { path: 'newproject', element: <NewProject /> },
           { path: 'myprojects', element: <MyProjects /> },
           { path: 'project/:id', element: <ProjectDetails /> },
+          { path: 'edit-profile', element: <EditProfileForm /> },
+          { path: 'edit-profile-confirmation', element: <EditProfileConfirmation /> },  
           { path: 'myprojects/:id/versions', element: <VersionUploads /> },
           { path: '*', element: <NotFound /> }
         ]
@@ -36,5 +41,3 @@ const AppRoutes = () => {
     ]);
     return routes;
 };
-
-export default AppRoutes;
