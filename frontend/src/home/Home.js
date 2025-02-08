@@ -43,7 +43,7 @@ const projects = [
 export default function Home() {
     return (
         <Container className="mt-5 mb-5">
-            <h1 className="text-center">Projects</h1>
+            <h1 className="text-center">Feed</h1>
             <Row>
                 {projects.map(project => (
                     <Col key={project.id} md={12} className="mb-4">

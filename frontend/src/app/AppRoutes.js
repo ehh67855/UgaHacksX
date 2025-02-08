@@ -8,7 +8,9 @@ import ForgotPassword from "src/ForgotPassword/ForgotPassword";
 import PasswordReset from "src/ForgotPassword/PasswordReset";
 import ActivateAccount from "src/register/ActivateAccount";
 import SignupConfirmation from "src/register/SignupConfirmation";
-import NewProject from "src/newProject/newproject";
+import NewProject from "src/NewProject/newproject";
+import MyProjects from "src/MyProjects/myprojects";
+import VersionUploads from "src/VersionUploads/versionuploads"; 
 
 const AppRoutes = () => {
     let routes = useRoutes([
@@ -24,6 +26,8 @@ const AppRoutes = () => {
           { path: 'activate-account', element: <ActivateAccount /> },
           { path: 'signup-confirmation', element: <SignupConfirmation /> },
           { path: 'newproject', element: <NewProject /> },
+          { path: 'myprojects', element: <MyProjects /> },
+          { path: 'project/:id', element: <VersionUploads /> },
           { path: '*', element: <NotFound /> }
         ]
       }

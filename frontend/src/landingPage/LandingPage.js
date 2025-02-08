@@ -12,7 +12,7 @@ export default function LandingPage() {
                     <Button variant="primary" href="/login">Log In</Button>
                 </Col>
                 <Col md="auto">
-                    <Button variant="secondary" href="/signup">Sign Up</Button>
+                    <Button variant="secondary" href="/register">Sign Up</Button>
                 </Col>
             </Row>
         </Container>
