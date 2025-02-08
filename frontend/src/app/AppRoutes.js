@@ -8,12 +8,13 @@ import ForgotPassword from "src/ForgotPassword/ForgotPassword";
 import PasswordReset from "src/ForgotPassword/PasswordReset";
 import ActivateAccount from "src/register/ActivateAccount";
 import SignupConfirmation from "src/register/SignupConfirmation";
+import NewProject from "src/newProject/newproject";
 
 const AppRoutes = () => {
     let routes = useRoutes([
       {
         path: '/',
-        element: <LayoutPage><Outlet /></LayoutPage>, // Wrap Outlet inside LayoutPage
+        element: <LayoutPage><Outlet /></LayoutPage>,
         children: [
           { index: true, element: <App /> },
           { path: 'login', element: <Login /> },
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           { path: 'reset-password', element: <PasswordReset /> },
           { path: 'activate-account', element: <ActivateAccount /> },
           { path: 'signup-confirmation', element: <SignupConfirmation /> },
+          { path: 'newproject', element: <NewProject /> },
           { path: '*', element: <NotFound /> }
         ]
       }
@@ -29,5 +31,4 @@ const AppRoutes = () => {
     return routes;
 };
 
-  
 export default AppRoutes;
