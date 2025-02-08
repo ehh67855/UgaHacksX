@@ -23,28 +23,40 @@ export default function ProjectDetails() {
         try {
             const response = await fetch(`http://localhost:8080/api/projects/${id}`, {
                 headers: {
-                    'Authorization': `Bearer ${getAuthToken()}`
+                    'Authorization': `Bearer ${getAuthToken()}`,
+                    'Content-Type': 'application/json'
                 }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setProject(data);
-                // Sort versions by date, newest first
-                const sortedVersions = (data.projectVersions || []).sort((a, b) => 
+            });            
+        
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log('Project data received:', data);
+            
+            if (!data) {
+                throw new Error('No project data received');
+            }
+    
+            setProject(data);
+            
+            if (Array.isArray(data.projectVersions)) {
+                const sortedVersions = data.projectVersions.sort((a, b) => 
                     new Date(b.uploadDate) - new Date(a.uploadDate)
                 );
                 setVersions(sortedVersions);
             } else {
-                setError('Failed to fetch project details');
+                setVersions([]);
             }
         } catch (error) {
-            setError('Error loading project details');
-            console.error('Error:', error);
+            console.error('Error in fetchProjectDetails:', error);
+            setError(error.message);
         } finally {
             setLoading(false);
         }
     };
-
+    
     const fetchComments = async () => {
         try {
             const response = await fetch(`http://localhost:8080/api/projects/${id}/comments`, {
@@ -54,10 +66,38 @@ export default function ProjectDetails() {
             });
             if (response.ok) {
                 const data = await response.json();
-                setComments(data);
+                const sortedComments = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setComments(sortedComments);
             }
         } catch (error) {
             console.error('Error fetching comments:', error);
+        }
+    };
+
+    const handleDownload = async (versionId, fileName) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/projects/download/${versionId}`, {
+                headers: {
+                    'Authorization': `Bearer ${getAuthToken()}`
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Download failed');
+            }
+    
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${fileName}.zip`);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Download failed", error);
+            alert("Failed to download file.");
         }
     };
 
@@ -80,7 +120,7 @@ export default function ProjectDetails() {
 
             if (response.ok) {
                 const newCommentData = await response.json();
-                setComments([...comments, newCommentData]);
+                setComments([newCommentData, ...comments]);
                 setNewComment('');
             }
         } catch (error) {
@@ -99,7 +139,7 @@ export default function ProjectDetails() {
                 <Card.Body>
                     <Card.Title as="h2">{project.name}</Card.Title>
                     <Card.Subtitle className="mb-3 text-muted">
-                        Posted by {project.owner?.login}
+                        Posted by {project.name}
                     </Card.Subtitle>
                     <Card.Text>{project.description}</Card.Text>
                 </Card.Body>
@@ -123,7 +163,7 @@ export default function ProjectDetails() {
                                         <Button 
                                             variant="outline-primary" 
                                             size="sm"
-                                            onClick={() => window.open(`http://localhost:8080/api/projects/versions/${version.id}/download`)}
+                                            onClick={() => handleDownload(version.id, version.name)}
                                         >
                                             Download
                                         </Button>
@@ -171,9 +211,6 @@ export default function ProjectDetails() {
                                     <Card.Body>
                                         <Card.Text>{comment.content}</Card.Text>
                                         <div className="d-flex justify-content-between">
-                                            <small className="text-muted">
-                                                Posted by {comment.userLogin}
-                                            </small>
                                             <small className="text-muted">
                                                 {new Date(comment.createdAt).toLocaleString()}
                                             </small>

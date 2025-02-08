@@ -24,10 +24,10 @@ public class Comment {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "project_version_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", nullable = false)
     @JsonBackReference
-    private ProjectVersion projectVersion;
+    private Project project; 
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
