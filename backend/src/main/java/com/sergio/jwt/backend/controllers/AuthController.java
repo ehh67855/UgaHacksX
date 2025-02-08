@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend URL
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") // Allow frontend URL
 public class AuthController {
 
     private final UserService userService;
