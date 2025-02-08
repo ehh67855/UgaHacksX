@@ -3,9 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -19,16 +17,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { isAuthenticated, setAuthHeader } from "@/services/BackendService";
 import { SubmitFeedbackButton } from "@/components/submit-feedback-button";
 import logo from "@/../public/logo.svg";
+import { setAuthHeader } from "@/services/BackendService";
+import { useRouter } from "next/navigation";
 
-export function Header() {
+export function Header(props: { isAuthed: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="bg-background border-b">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="container mx-auto py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image src={logo} alt="Logo" width={40} height={40} />
           <span className="text-lg font-semibold">MixStash</span>
@@ -36,7 +35,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-2">
-          <NavItems />
+          <NavItems isAuthed={props.isAuthed} />
         </nav>
 
         {/* Mobile Navigation */}
@@ -49,7 +48,7 @@ export function Header() {
           </SheetTrigger>
           <SheetContent>
             <nav className="flex flex-col space-y-4">
-              <NavItems />
+              <NavItems isAuthed={props.isAuthed} />
             </nav>
           </SheetContent>
         </Sheet>
@@ -58,19 +57,17 @@ export function Header() {
   );
 }
 
-async function NavItems() {
+function NavItems(props: { isAuthed: boolean }) {
   const router = useRouter();
 
-  const handleLogout = () => {
-    setAuthHeader(null);
-    router.refresh();
+  const handleLogout = async () => {
+    await setAuthHeader(null);
+    router.refresh()
   };
-
-  const isAuthed = await isAuthenticated();
 
   return (
     <>
-      {isAuthed ? (
+      {props.isAuthed ? (
         <>
           <AlertDialog>
             <AlertDialogTrigger asChild>
