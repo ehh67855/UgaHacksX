@@ -1,19 +1,20 @@
 package com.sergio.jwt.backend.entites;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Data
 @Entity
 @Table(name = "project_version")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 public class ProjectVersion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,13 +23,9 @@ public class ProjectVersion {
     private String name;
 
     @Lob
-    @Column(nullable = false)
     private byte[] blobData;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-
-    // @OneToMany(mappedBy = "projectVersion", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Comment> comments = new ArrayList<>();
 }
