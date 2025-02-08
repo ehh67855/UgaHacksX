@@ -46,4 +46,7 @@ public class User {
     @Builder.Default
     private boolean isActive = false;
     
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Project> projects = new ArrayList<>();
+
 }
