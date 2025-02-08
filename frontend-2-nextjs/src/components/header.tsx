@@ -58,7 +58,7 @@ export function Header() {
   );
 }
 
-function NavItems() {
+async function NavItems() {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -66,9 +66,11 @@ function NavItems() {
     router.refresh();
   };
 
+  const isAuthed = await isAuthenticated();
+
   return (
     <>
-      {isAuthenticated() ? (
+      {isAuthed ? (
         <>
           <AlertDialog>
             <AlertDialogTrigger asChild>

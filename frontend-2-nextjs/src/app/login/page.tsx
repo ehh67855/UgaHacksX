@@ -54,7 +54,7 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        setAuthHeader(data["token"]);
+        await setAuthHeader(data["token"]);
         router.push("/");
       } else {
         let errorMessage: string | null;
