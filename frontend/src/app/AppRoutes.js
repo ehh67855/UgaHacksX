@@ -11,6 +11,7 @@ import SignupConfirmation from "src/register/SignupConfirmation";
 import NewProject from "src/NewProject/newproject";
 import MyProjects from "src/MyProjects/myprojects";
 import VersionUploads from "src/VersionUploads/versionuploads"; 
+import ProjectDetails from "src/project/ProjectDetails";
 
 const AppRoutes = () => {
     let routes = useRoutes([
@@ -27,7 +28,7 @@ const AppRoutes = () => {
           { path: 'signup-confirmation', element: <SignupConfirmation /> },
           { path: 'newproject', element: <NewProject /> },
           { path: 'myprojects', element: <MyProjects /> },
-          { path: 'project/:id', element: <VersionUploads /> },
+          { path: 'project/:id', element: <ProjectDetails /> }, // Updated this line
           { path: '*', element: <NotFound /> }
         ]
       }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuthToken } from '../services/BackendService';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
     const [projects, setProjects] = useState([]);
@@ -48,7 +49,13 @@ export default function Home() {
                                     Posted by {project.login} on {new Date(project.datePosted).toLocaleDateString()}
                                 </Card.Subtitle>
                                 <Card.Text>{project.description}</Card.Text>
-                                <Button variant="primary" href={`/project/${project.id}`}>View More</Button>
+                                <Button 
+                                    as={Link} 
+                                    to={`/project/${project.id}`} 
+                                    variant="primary"
+                                >
+                                    View More
+                                </Button>
                             </Card.Body>
                         </Card>
                     </Col>
