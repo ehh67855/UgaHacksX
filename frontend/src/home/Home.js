@@ -46,7 +46,7 @@ export default function Home() {
                             <Card.Body>
                                 <Card.Title>{project.name}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
-                                    Posted by {project.login} on {new Date(project.datePosted).toLocaleDateString()}
+                                    Posted by {project.owner?.login || 'Unknown user'}
                                 </Card.Subtitle>
                                 <Card.Text>{project.description}</Card.Text>
                                 <Button 
