@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { getAuthToken, getLogin } from 'src/services/BackendService';
 
@@ -53,7 +53,12 @@ export default function MyProjects() {
                                     Posted on {project.datePosted}
                                 </Card.Subtitle>
                                 <Card.Text>{project.description}</Card.Text>
-                                <Button variant="primary" href={`/project/${project.id}`} className="me-2">
+                                <Button 
+                                    as={Link} 
+                                    to={`/myprojects/${project.id}/versions`} 
+                                    variant="primary"
+                                    className="me-2"
+                                >
                                     View More
                                 </Button>
                                 <Button 

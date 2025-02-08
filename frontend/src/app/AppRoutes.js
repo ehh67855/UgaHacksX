@@ -28,7 +28,8 @@ const AppRoutes = () => {
           { path: 'signup-confirmation', element: <SignupConfirmation /> },
           { path: 'newproject', element: <NewProject /> },
           { path: 'myprojects', element: <MyProjects /> },
-          { path: 'project/:id', element: <ProjectDetails /> }, // Updated this line
+          { path: 'project/:id', element: <ProjectDetails /> },
+          { path: 'myprojects/:id/versions', element: <VersionUploads /> },
           { path: '*', element: <NotFound /> }
         ]
       }
