@@ -13,7 +13,11 @@ export default function MyProjects() {
     const userLogin = getLogin(getAuthToken()); // Replace with actual user login (from auth context/session)
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/projects/${userLogin}`)
+        fetch(`http://localhost:8080/api/projects/user/${userLogin}`, {  // Add 'user/' to the path
+            headers: {
+                'Authorization': `Bearer ${getAuthToken()}`  // Add Authorization header
+            }
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Failed to load projects.");
@@ -28,7 +32,7 @@ export default function MyProjects() {
                 setError(error.message);
                 setLoading(false);
             });
-    }, []);
+    }, [userLogin]); // Add userLogin as dependency
     
 
     return (

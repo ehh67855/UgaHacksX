@@ -1,32 +1,36 @@
 package com.sergio.jwt.backend.entites;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @Entity
 @Table(name = "project_version")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id"
-)
 public class ProjectVersion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 255)
     private String name;
-    
+
     @Lob
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGBLOB", nullable = false)
+    @JsonIgnore
     private byte[] blobData;
 
+    // Add ManyToOne relationship
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    private Project project;  // This creates the projectId column in project_version table
 }

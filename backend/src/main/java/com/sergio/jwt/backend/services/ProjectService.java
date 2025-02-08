@@ -11,9 +11,18 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sergio.jwt.backend.dtos.CommentRequest;
+import com.sergio.jwt.backend.entites.Comment;
 import com.sergio.jwt.backend.entites.Project;
 import com.sergio.jwt.backend.entites.ProjectVersion;
 import com.sergio.jwt.backend.entites.User;
@@ -32,7 +41,6 @@ public class ProjectService {
     @Autowired
     private UserRepository userRepository;
 
-    
     public Project createProject(String name, String description, MultipartFile file, String login) {
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new RuntimeException("User not found with login: " + login));
@@ -114,5 +122,9 @@ public class ProjectService {
         }
     }
     
+    public Project getProjectById(Long projectId) {
+        return projectRepository.findById(projectId)
+            .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
+    }
 
 }

@@ -22,6 +22,7 @@ export default function VersionUploads() {
                 if (response.data.length > 0) {
                     setLatestVersion(response.data[0]); // Latest version
                     setVersions(response.data.slice(1)); // Older versions
+                    console.log(response.data);
                 } else {
                     setLatestVersion(null);
                     setVersions([]);
@@ -130,22 +131,29 @@ export default function VersionUploads() {
                 <Card className="shadow">
                     <Card.Header as="h3">Previous Versions</Card.Header>
                     <ListGroup variant="flush">
-                        {versions.map(version => (
-                            <ListGroup.Item key={version.id}>
-                                <Row className="align-items-center">
-                                    <Col md={8}>
-                                        <h5>{version.name}</h5>
-                                        <p className="text-muted mb-1">Uploaded on {version.uploadDate}</p>
-                                        <p>{version.description}</p>
-                                    </Col>
-                                    <Col md={4} className="text-md-end mt-3 mt-md-0">
-                                        <Button variant="outline-primary" size="sm" onClick={() => handleDownload(version.id, version.name)}>
-                                            Download
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
-                        ))}
+                    {versions.map(version => (
+                        <ListGroup.Item key={version.id}>
+                            <Row className="align-items-center">
+                                <Col md={8}>
+                                    <h5 key={`name-${version.id}`}>{version.name}</h5>
+                                    <p key={`date-${version.id}`} className="text-muted mb-1">
+                                        Uploaded on {version.uploadDate}
+                                    </p>
+                                    <p key={`desc-${version.id}`}>{version.description}</p>
+                                </Col>
+                                <Col md={4} className="text-md-end mt-3 mt-md-0">
+                                    <Button 
+                                        key={`btn-${version.id}`}
+                                        variant="outline-primary" 
+                                        size="sm" 
+                                        onClick={() => handleDownload(version.id, version.name)}
+                                    >
+                                        Download
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </ListGroup.Item>
+                    ))}
                     </ListGroup>
                 </Card>
             )}
