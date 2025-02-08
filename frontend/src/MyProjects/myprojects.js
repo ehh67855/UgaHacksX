@@ -1,37 +1,51 @@
-import React from 'react';
-import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Button, Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import { getAuthToken, getLogin } from 'src/services/BackendService';
 
 export default function MyProjects() {
     const navigate = useNavigate();
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
+    const userLogin = getLogin(getAuthToken()); // Replace with actual user login (from auth context/session)
 
-    // TODO: Replace this with actual API call to get user's projects
-    const myProjects = [
-        {
-            id: 1,
-            name: 'My Project One',
-            description: 'This is my first project',
-            datePosted: '2025-02-01'
-        },
-        // Add more projects as needed
-    ];
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/projects/${userLogin}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load projects.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                setProjects(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            });
+    }, []);
+    
 
     return (
         <Container className="mt-5 mb-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1>My Projects</h1>
-                <Button 
-                    variant="success" 
-                    onClick={() => navigate('/NewProject')}
-                >
+                <Button variant="success" onClick={() => navigate('/NewProject')}>
                     Add Project
                 </Button>
             </div>
-            
+
+            {loading && <Spinner animation="border" />}
+            {error && <Alert variant="danger">{error}</Alert>}
+
             <Row>
-                {myProjects.map(project => (
-                    <Col key={project.id} md={12} className="mb-4">
+                {projects.length > 0 ? projects.map((project, index) => (
+                    <Col key={project.id || index} md={12} className="mb-4">
                         <Card>
                             <Card.Body>
                                 <Card.Title>{project.name}</Card.Title>
@@ -39,28 +53,20 @@ export default function MyProjects() {
                                     Posted on {project.datePosted}
                                 </Card.Subtitle>
                                 <Card.Text>{project.description}</Card.Text>
-                                <Button 
-                                    variant="primary" 
-                                    href={`/project/${project.id}`}
-                                    className="me-2"
-                                >
+                                <Button variant="primary" href={`/project/${project.id}`} className="me-2">
                                     View More
                                 </Button>
-                                <Button 
-                                    variant="outline-danger"
-                                    onClick={() => {
-                                        // TODO: Implement delete functionality
-                                        if(window.confirm('Are you sure you want to delete this project?')) {
-                                            console.log('Delete project:', project.id);
-                                        }
-                                    }}
-                                >
+                                <Button variant="outline-danger" onClick={() => {
+                                    if (window.confirm('Are you sure you want to delete this project?')) {
+                                        console.log('Delete project:', project.id);
+                                    }
+                                }}>
                                     Delete
                                 </Button>
                             </Card.Body>
                         </Card>
                     </Col>
-                ))}
+                )) : <p>No projects found.</p>}
             </Row>
         </Container>
     );
