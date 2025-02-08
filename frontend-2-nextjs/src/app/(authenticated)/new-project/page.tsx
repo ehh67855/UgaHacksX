@@ -20,7 +20,7 @@ import {
 import { getAuthToken, getLogin } from "@/services/BackendService";
 import { formatApiUrl } from "@/lib/utils";
 
-const formSchema = z.object({
+const newProjectFormSchema = z.object({
   name: z.string().min(1, "Project name is required"),
   description: z.string().min(1, "Project description is required"),
   file: z.instanceof(File).refine((file) => file.size < 10_000_000, {
@@ -28,11 +28,11 @@ const formSchema = z.object({
   }),
 });
 
-export default function NewProject() {
+export default function NewProjectPage() {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(newProjectFormSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -46,12 +46,9 @@ export default function NewProject() {
     formData.append("description", data.description);
     formData.append("file", data.file);
     const authToken = await getAuthToken();
-    if (!authToken) {
-      throw new Error("Missing auth token.");
-    }
     const login = await getLogin(authToken);
     if (!login) {
-      throw new Error("Missing login.");
+      throw new Error("You must be logged in.");
     }
     formData.append("login", login);
 
@@ -60,12 +57,8 @@ export default function NewProject() {
         method: "POST",
         body: formData,
       });
-
-      console.log("response:", response);
-
-      const json = await response.json();
-      const projectId = json["id"];
-      console.log("response JSON:", json);
+      const responseJson = await response.json();
+      const newProjectId = responseJson["id"];
 
       if (response.ok) {
         toast({
@@ -74,7 +67,7 @@ export default function NewProject() {
         });
 
         // redirect
-        router.push(`/projects/${projectId}`);
+        router.push(`/projects/${newProjectId}`);
       } else {
         toast({
           title: "Error",

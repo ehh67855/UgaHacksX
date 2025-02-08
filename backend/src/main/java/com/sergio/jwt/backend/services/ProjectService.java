@@ -52,7 +52,7 @@ public class ProjectService {
     
         projectVersion.setProject(project);
         project.getProjectVersions().add(projectVersion);
-    \
+        
         return projectRepository.save(project);
     }
 

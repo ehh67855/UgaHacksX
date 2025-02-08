@@ -16,11 +16,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header isAuthed={isAuthed} />
+        {children}
+        {/* <Header isAuthed={isAuthed} />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer /> */}
       </body>
     </html>
   );

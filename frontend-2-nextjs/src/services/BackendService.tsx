@@ -42,7 +42,10 @@ export const isUser = async (token: string): Promise<boolean> => {
   return decoded.role === "USER";
 };
 
-export const getLogin = async (token: string): Promise<string | undefined> => {
+export const getLogin = async (
+  token: string | null
+): Promise<string | undefined> => {
+  if (!token) return undefined;
   const decoded = jwtDecode<CustomJwtPayload>(token);
   return decoded.sub;
 };
