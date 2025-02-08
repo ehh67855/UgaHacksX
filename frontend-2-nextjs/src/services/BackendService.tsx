@@ -1,10 +1,14 @@
 import { jwtDecode } from "jwt-decode";
 import { CustomJwtPayload } from "@/entities/CustomJwtPayload";
 
-export const BACKEND_API_URL = "http://localhost:8080/";
+export const BACKEND_API_URL = "http://localhost:8080";
 
 export const formatApiUrl = (endpoint: string): string => {
-  return `${BACKEND_API_URL}/${endpoint}`;
+  if (!endpoint.startsWith("/")) {
+    throw new Error("Endpoints must begin with a `/` character.");
+  }
+
+  return BACKEND_API_URL + endpoint;
 };
 
 export const getAuthToken = (): string | null => {
