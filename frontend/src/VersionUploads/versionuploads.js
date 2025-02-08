@@ -22,6 +22,9 @@ export default function VersionUploads() {
                 if (response.data.length > 0) {
                     setLatestVersion(response.data[0]); // Latest version
                     setVersions(response.data.slice(1)); // Older versions
+                } else {
+                    setLatestVersion(null);
+                    setVersions([]);
                 }
                 setLoading(false);
             })
@@ -101,6 +104,7 @@ export default function VersionUploads() {
                 </Row>
             </Card>
 
+            {/* Latest Version */}
             {latestVersion && (
                 <Card className="mb-5 shadow">
                     <Card.Header as="h2">Latest Version</Card.Header>
@@ -121,6 +125,7 @@ export default function VersionUploads() {
                 </Card>
             )}
 
+            {/* Previous Versions */}
             {versions.length > 0 && (
                 <Card className="shadow">
                     <Card.Header as="h3">Previous Versions</Card.Header>

@@ -56,11 +56,34 @@ export default function MyProjects() {
                                 <Button variant="primary" href={`/project/${project.id}`} className="me-2">
                                     View More
                                 </Button>
-                                <Button variant="outline-danger" onClick={() => {
-                                    if (window.confirm('Are you sure you want to delete this project?')) {
-                                        console.log('Delete project:', project.id);
-                                    }
-                                }}>
+                                <Button 
+                                    variant="outline-danger" 
+                                    onClick={async () => {
+                                        if (window.confirm('Are you sure you want to delete this project?')) {
+                                            try {
+                                                const response = await fetch(
+                                                    `http://localhost:8080/api/projects/${project.id}/delete?login=${userLogin}`,
+                                                    {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Authorization': `Bearer ${getAuthToken()}`
+                                                        }
+                                                    }
+                                                );
+                                                
+                                                if (!response.ok) {
+                                                    throw new Error('Failed to delete project');
+                                                }
+                                                
+                                                setProjects(currentProjects => 
+                                                    currentProjects.filter(p => p.id !== project.id)
+                                                );
+                                            } catch (error) {
+                                                setError(error.message);
+                                            }
+                                        }
+                                    }}
+                                >
                                     Delete
                                 </Button>
                             </Card.Body>
