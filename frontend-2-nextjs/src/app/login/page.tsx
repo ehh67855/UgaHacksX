@@ -25,7 +25,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { loginSchema } from "@/schemas/login-schema";
-import { formatApiUrl, setAuthHeader } from "@/services/BackendService";
+import { setAuthHeader } from "@/services/BackendService";
+import { formatApiUrl } from "@/lib/utils";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 

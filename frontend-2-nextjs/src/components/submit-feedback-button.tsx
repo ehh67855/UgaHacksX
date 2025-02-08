@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { feedbackSchema } from "@/schemas/feedback";
-import { formatApiUrl } from "@/services/BackendService";
+import { formatApiUrl } from "@/lib/utils";
 
 type FeedbackFormValues = z.infer<typeof feedbackSchema>;
 

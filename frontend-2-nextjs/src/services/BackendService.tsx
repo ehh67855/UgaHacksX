@@ -1,16 +1,10 @@
+"use server";
+
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import { CustomJwtPayload } from "@/entities/CustomJwtPayload";
 
-const BACKEND_API_URL = "http://localhost:8080";
 const AUTH_TOKEN_COOKIE_NAME = "auth_token";
-
-export const formatApiUrl = (endpoint: string): string => {
-  if (!endpoint.startsWith("/")) {
-    throw new Error("Endpoints must begin with a `/` character.");
-  }
-  return BACKEND_API_URL + endpoint;
-};
 
 export const getAuthToken = async (): Promise<string | null> => {
   const cookieStore = await cookies();
@@ -35,7 +29,7 @@ export const isAuthenticated = async (): Promise<boolean> => {
   return authToken !== null;
 };
 
-export const isAdmin = (token: string | null): boolean => {
+export const isAdmin = async (token: string | null): Promise<boolean> => {
   if (token == null) {
     return false;
   }
@@ -43,12 +37,12 @@ export const isAdmin = (token: string | null): boolean => {
   return decoded.role == "ADMIN";
 };
 
-export const isUser = (token: string): boolean => {
+export const isUser = async (token: string): Promise<boolean> => {
   const decoded = jwtDecode<CustomJwtPayload>(token);
   return decoded.role == "USER";
 };
 
-export const getLogin = (token: string): string | undefined => {
+export const getLogin = async (token: string): Promise<string | undefined> => {
   const decoded = jwtDecode<CustomJwtPayload>(token);
   return decoded.sub;
 };
