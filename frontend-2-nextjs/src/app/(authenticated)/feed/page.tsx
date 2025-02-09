@@ -28,13 +28,12 @@ export async function getFeedProjects(): Promise<Project[]> {
 
 export default async function HomePage() {
   const feedProjects = await getFeedProjects();
-
-  console.log(feedProjects);
+  const reversedFeedProjects = feedProjects.toReversed();
 
   return (
     <PageTemplate name="Feed">
       <Suspense fallback={<ProjectListSkeleton />}>
-        <ProjectFeed initialProjects={feedProjects} />
+        <ProjectFeed initialProjects={reversedFeedProjects} />
       </Suspense>
     </PageTemplate>
   );
