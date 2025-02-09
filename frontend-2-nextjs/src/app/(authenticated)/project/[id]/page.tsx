@@ -11,6 +11,12 @@ import {
 } from "./data";
 import { PageTemplate } from "@/components/page-template";
 
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "View Project",
+}
+
 export default async function ViewProjectPage({
   params,
 }: {

@@ -27,6 +27,11 @@ import {
 import { loginSchema } from "@/schemas/login-schema";
 import { setAuthHeader } from "@/services/BackendService";
 import { formatApiUrl } from "@/lib/utils";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+}
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 

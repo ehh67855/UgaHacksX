@@ -25,9 +25,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SubmitFeedbackButton } from "@/components/submit-feedback-button";
 import { setAuthHeader } from "@/services/BackendService";
 import logo from "@/../public/logo.svg";
+import { siteConfig } from "@/config/site";
 
 export function Header(props: { isAuthed: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +48,7 @@ export function Header(props: { isAuthed: boolean }) {
             width={40}
             height={40}
           />
-          <span className="text-xl font-bold">MixStash</span>
+          <span className="text-xl font-bold">{siteConfig.name}</span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -135,11 +135,11 @@ export function ProjectList({ userLogin }: { userLogin: string }) {
           <CardContent>
             <p>Description: {project.description}</p>
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex flex-row gap-2">
             <Button asChild>
               <Link href={`/project/${project.id}`}>
                 <Info />
-                View More
+                View Info
               </Link>
             </Button>
             <Button

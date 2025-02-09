@@ -17,6 +17,11 @@ import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import { formatApiUrl } from "@/lib/utils";
 import { forgotPasswordSchema } from "@/schemas/forgot-password-schema";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Forgot Password",
+}
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 

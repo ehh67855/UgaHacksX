@@ -9,6 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageTemplate } from "@/components/page-template";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Edit Profile Success",
+}
 
 export default function EditProfileConfirmation() {
   return (

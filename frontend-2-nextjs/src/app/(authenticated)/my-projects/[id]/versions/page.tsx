@@ -5,6 +5,12 @@ import { VersionList } from "./version-list";
 import { UploadForm } from "./upload-form";
 import { PageTemplate } from "@/components/page-template";
 
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Project",
+}
+
 export default async function VersionsPage({
   params,
 }: {

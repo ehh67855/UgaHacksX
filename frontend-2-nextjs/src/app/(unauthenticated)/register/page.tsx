@@ -21,6 +21,11 @@ import { Progress } from "@/components/ui/progress";
 import * as z from "zod";
 import { registerSchema } from "@/schemas/register-schema";
 import { formatApiUrl } from "@/lib/utils";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Register",
+}
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 

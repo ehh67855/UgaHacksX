@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ProjectList } from "./project-list";
 import { PageTemplate } from "@/components/page-template";
 import { Plus } from "lucide-react";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Projects",
+}
 
 export default async function MyProjectsPage() {
   const authToken = await getAuthToken();

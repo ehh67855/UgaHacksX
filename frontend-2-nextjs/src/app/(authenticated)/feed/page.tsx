@@ -6,10 +6,17 @@ import { getAuthToken } from "@/services/BackendService";
 import type { Project } from "@/types/project";
 import { formatApiUrl } from "@/lib/utils";
 
-export async function getProjects(): Promise<Project[]> {
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Feed",
+}
+
+export async function getFeedProjects(): Promise<Project[]> {
+  const authToken = await getAuthToken();
   const response = await fetch(formatApiUrl(`/api/projects`), {
     headers: {
-      Authorization: `Bearer ${getAuthToken()}`,
+      Authorization: `Bearer ${authToken}`,
     },
     cache: "no-store",
   });
@@ -20,12 +27,14 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export default async function HomePage() {
-  const projects = await getProjects();
+  const feedProjects = await getFeedProjects();
+
+  console.log(feedProjects);
 
   return (
     <PageTemplate name="Feed">
       <Suspense fallback={<ProjectListSkeleton />}>
-        <ProjectFeed initialProjects={projects} />
+        <ProjectFeed initialProjects={feedProjects} />
       </Suspense>
     </PageTemplate>
   );

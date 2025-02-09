@@ -25,6 +25,11 @@ import {
 } from "@/components/ui/card";
 import { activateAccountSchema } from "@/schemas/activate-account-schema";
 import { formatApiUrl } from "@/lib/utils";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Activate Account",
+}
 
 export type ActivateAccountFormValues = z.infer<typeof activateAccountSchema>;
 

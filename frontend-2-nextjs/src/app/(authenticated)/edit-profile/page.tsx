@@ -4,6 +4,11 @@ import { EditProfileForm } from "./edit-profile-form";
 import { getUserData } from "./data";
 import { redirect } from "next/navigation";
 import { PageTemplate } from "@/components/page-template";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Edit Profile",
+}
 
 export default async function EditProfilePage() {
   const token = await getAuthToken();

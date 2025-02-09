@@ -18,6 +18,11 @@ import { useToast } from "@/hooks/use-toast";
 import * as z from "zod";
 import { formatApiUrl } from "@/lib/utils";
 import { resetPasswordSchema } from "@/schemas/reset-password-schema";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reset Password",
+}
 
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 

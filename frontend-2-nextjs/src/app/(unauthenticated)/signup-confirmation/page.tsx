@@ -8,6 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Signup Confirmation",
+}
 
 export default function SignupConfirmationPage() {
   return (
