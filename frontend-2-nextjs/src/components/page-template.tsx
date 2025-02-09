@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { cn } from "@/lib/utils";
 import { ModeSwitcher } from "./mode-switcher";
+import { LucideIcon } from "lucide-react";
 
 export function PageTemplate(
   props: RootLayoutProps & {
@@ -26,7 +27,11 @@ export function PageTemplate(
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{props.name}</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    {
+                      `${props.name} Page`
+                    }
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

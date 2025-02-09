@@ -6,6 +6,7 @@ import { getAuthToken } from "@/services/BackendService";
 import type { Project } from "@/types/project";
 import { formatApiUrl } from "@/lib/utils";
 import { type Metadata } from "next";
+import { NewProjectButton } from "@/components/new-project-button";
 
 export const metadata: Metadata = {
   title: "Feed",
@@ -31,7 +32,7 @@ export default async function HomePage() {
   const reversedFeedProjects = feedProjects.toReversed();
 
   return (
-    <PageTemplate name="Feed">
+    <PageTemplate name="Feed" rightSide={<NewProjectButton />}>
       <Suspense fallback={<ProjectListSkeleton />}>
         <ProjectFeed initialProjects={reversedFeedProjects} />
       </Suspense>

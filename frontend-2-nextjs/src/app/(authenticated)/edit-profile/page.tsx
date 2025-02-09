@@ -6,10 +6,11 @@ import { redirect } from "next/navigation";
 import { PageTemplate } from "@/components/page-template";
 import { type Metadata } from "next";
 import { Card } from "@/components/ui/card";
+import { Pencil } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Edit Profile",
-}
+};
 
 export default async function EditProfilePage() {
   const token = await getAuthToken();
