@@ -2,6 +2,10 @@ export interface Project {
   id: number;
   name: string;
   description: string;
+  owner: {
+    firstName: string;
+    lastName: string;
+  };
 }
 
 export interface ProjectVersion {

@@ -8,10 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { PageTemplate } from "@/components/page-template";
 
 export default function EditProfileConfirmation() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <PageTemplate name="Edit Profile Success">
       <div className="max-w-md mx-auto">
         <Card>
           <CardHeader>
@@ -31,6 +32,6 @@ export default function EditProfileConfirmation() {
           </CardFooter>
         </Card>
       </div>
-    </div>
+    </PageTemplate>
   );
 }

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { getAuthToken, getLogin } from "@/services/BackendService";
 import { formatApiUrl } from "@/lib/utils";
+import { PageTemplate } from "@/components/page-template";
 
 const newProjectFormSchema = z.object({
   name: z.string().min(1, "Project name is required"),
@@ -67,7 +68,7 @@ export default function NewProjectPage() {
         });
 
         // redirect
-        router.push(`/projects/${newProjectId}`);
+        router.push(`/project/${newProjectId}`);
       } else {
         toast({
           title: "Error",
@@ -86,76 +87,83 @@ export default function NewProjectPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
-      <Card className="w-full max-w-lg p-6 shadow-lg">
-        <CardContent>
-          <h1 className="text-2xl font-bold text-center mb-4">
-            Add New Project
-          </h1>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Project Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Enter project name" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Project Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        {...field}
-                        placeholder="Enter project description"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <PageTemplate name="New Project">
+      <div className="flex justify-center items-center min-h-screen p-4">
+        <Card className="w-full max-w-lg p-6 shadow-lg">
+          <CardContent>
+            <h1 className="text-2xl font-bold text-center mb-4">
+              Add New Project
+            </h1>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Project Name</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="Enter project name" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Project Description</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          {...field}
+                          placeholder="Enter project description"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="file"
-                render={({ field: { value, onChange, ...fieldProps } }) => (
-                  <FormItem>
-                    <FormLabel>Project File</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...fieldProps}
-                        placeholder="Project File"
-                        type="file"
-                        accept=".logicx,.band"
-                        onChange={(event) =>
-                          onChange(event.target.files && event.target.files[0])
-                        }
-                      />
-                    </FormControl>
-                    <p className="text-sm text-muted-foreground">
-                      Upload your Logic Pro X or GarageBand project files
-                    </p>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="file"
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
+                    <FormItem>
+                      <FormLabel>Project File</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...fieldProps}
+                          placeholder="Project File"
+                          type="file"
+                          accept=".logicx,.band"
+                          onChange={(event) =>
+                            onChange(
+                              event.target.files && event.target.files[0]
+                            )
+                          }
+                        />
+                      </FormControl>
+                      <p className="text-sm text-muted-foreground">
+                        Upload your Logic Pro X or GarageBand project files
+                      </p>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <Button type="submit" className="w-full">
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </div>
+                <Button type="submit" className="w-full">
+                  Submit
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </PageTemplate>
   );
 }

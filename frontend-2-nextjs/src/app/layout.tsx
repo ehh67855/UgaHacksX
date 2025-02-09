@@ -1,9 +1,7 @@
 import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { geistMono, geistSans } from "@/lib/fonts";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
-import { isAuthenticated } from "@/services/BackendService";
+import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
   title: "MixStash",
@@ -11,17 +9,12 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const isAuthed = await isAuthenticated();
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        {/* <Header isAuthed={isAuthed} />
-        <main className="flex-1">{children}</main>
-        <Footer /> */}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );

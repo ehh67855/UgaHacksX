@@ -75,7 +75,9 @@ export default function CommentSection({
 
         <div className="space-y-4">
           {comments.length > 0 ? (
-            comments.map((comment) => (
+            comments
+            .reverse()
+            .map((comment) => (
               <Card key={comment.id}>
                 <CardContent className="pt-4">
                   <p>{comment.content}</p>

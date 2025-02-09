@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getVersions } from "./data";
 import { VersionList } from "./version-list";
 import { UploadForm } from "./upload-form";
+import { PageTemplate } from "@/components/page-template";
 
 export default async function VersionsPage({
   params,
@@ -26,7 +27,7 @@ export default async function VersionsPage({
   console.log("olderVersions:", olderVersions);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <PageTemplate name="Version Uploads">
       <h1 className="text-3xl font-bold text-center mb-8">Version Uploads</h1>
 
       <Suspense fallback={<div>Loading upload form...</div>}>
@@ -39,6 +40,6 @@ export default async function VersionsPage({
           olderVersions={olderVersions}
         />
       </Suspense>
-    </div>
+    </PageTemplate>
   );
 }

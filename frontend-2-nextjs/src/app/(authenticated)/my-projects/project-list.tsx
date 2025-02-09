@@ -11,14 +11,14 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Info, Trash } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Project } from "@/types/project";
 import { formatApiUrl } from "@/lib/utils";
 
 async function getProjects(userLogin: string): Promise<Project[]> {
-  const res = await fetch(formatApiUrl(`/api/projects/${userLogin}`), {
+  const res = await fetch(formatApiUrl(`/api/projects/user/${userLogin}`), {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -36,6 +36,10 @@ async function getProjects(userLogin: string): Promise<Project[]> {
       id: item.id?.toString() ?? "",
       name: item.name ?? "",
       description: item.description ?? "",
+      owner: {
+        firstName: item.owner.firstName,
+        lastName: item.owner.lastName,
+      },
     })
   );
 
@@ -129,16 +133,20 @@ export function ProjectList({ userLogin }: { userLogin: string }) {
             <CardTitle>{project.name}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{project.description}</p>
+            <p>Description: {project.description}</p>
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button asChild>
-              <Link href={`/project/${project.id}`}>View More</Link>
+              <Link href={`/project/${project.id}`}>
+                <Info />
+                View More
+              </Link>
             </Button>
             <Button
               variant="destructive"
               onClick={() => handleDelete(project.id)}
             >
+              <Trash />
               Delete
             </Button>
           </CardFooter>

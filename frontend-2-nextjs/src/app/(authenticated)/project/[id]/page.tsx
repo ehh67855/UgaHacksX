@@ -9,6 +9,7 @@ import {
   getProjectVersions,
   getProjectComments,
 } from "./data";
+import { PageTemplate } from "@/components/page-template";
 
 export default async function ViewProjectPage({
   params,
@@ -36,7 +37,7 @@ export default async function ViewProjectPage({
     }
 
     return (
-      <div className="container mx-auto px-4 py-8">
+      <PageTemplate name="View Project">
         <ProjectDetails project={project} />
         <Suspense fallback={<div>Loading versions...</div>}>
           <VersionHistory versions={versions} />
@@ -49,7 +50,7 @@ export default async function ViewProjectPage({
             currentUser={currentUser}
           />
         </Suspense>
-      </div>
+      </PageTemplate>
     );
   } catch (error) {
     console.error("Error loading project:", error);

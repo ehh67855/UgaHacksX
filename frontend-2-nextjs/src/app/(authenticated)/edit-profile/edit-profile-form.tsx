@@ -32,10 +32,11 @@ const formSchema = z
       .max(20, "Password must not exceed 20 characters"),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+  // .refine((data) => data.password === data.confirmPassword, {
+  //   message: "Passwords do not match",
+  //   path: ["confirmPassword"],
+  // })
+  ;
 
 type FormValues = z.infer<typeof formSchema>;
 

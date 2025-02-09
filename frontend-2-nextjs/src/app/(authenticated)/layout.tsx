@@ -10,18 +10,16 @@ export default async function AuthenticatedLayoutWithSidebar(
   const authToken = await getAuthToken();
   const userLogin = await getLogin(authToken);
   if (!userLogin) {
-    redirect("/login");
+    return redirect("/login");
   }
 
-  // const userData = await getUserData(userLogin);
-  const userData = { firstName: "John", lastName: "Doe", email: "johndoe@gmail.com" }
+  const userData = await getUserData(userLogin);
 
   return (
     <SidebarProvider>
       <AppSidebar
         user={{
           name: `${userData.firstName} ${userData.lastName}`,
-          email: userData.email,
         }}
       />
       <SidebarInset>{props.children}</SidebarInset>

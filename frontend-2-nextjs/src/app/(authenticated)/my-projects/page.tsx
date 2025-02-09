@@ -3,31 +3,32 @@ import Link from "next/link";
 import { getAuthToken, getLogin } from "@/services/BackendService";
 import { Button } from "@/components/ui/button";
 import { ProjectList } from "./project-list";
+import { PageTemplate } from "@/components/page-template";
+import { Plus } from "lucide-react";
 
 export default async function MyProjectsPage() {
   const authToken = await getAuthToken();
-  if (!authToken) {
-    throw new Error("Missing auth token.");
-  }
-
   const userLogin = await getLogin(authToken);
   if (!userLogin) {
     throw new Error("Missing login.");
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">My Projects</h1>
+    <PageTemplate
+      name="My Projects"
+      rightSide={
         <Button asChild>
-          <Link href="/new-project">Add Project</Link>
+          <Link href="/new-project">
+            <Plus />
+            Add Project
+          </Link>
         </Button>
-      </div>
-
+      }
+    >
       <Suspense fallback={<ProjectListSkeleton />}>
         <ProjectList userLogin={userLogin} />
       </Suspense>
-    </div>
+    </PageTemplate>
   );
 }
 
