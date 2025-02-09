@@ -75,7 +75,7 @@ We used Spring Security to secure our endpoints. The security configuration ensu
 
 ## Tehnical Details of Backend
 
-## 🚀 Technical Stack
+## Technical Stack
 
 ### Core Technologies
 - **Next.js 14** - React framework with App Router
@@ -98,7 +98,7 @@ We used Spring Security to secure our endpoints. The security configuration ensu
 - Custom font optimization (Geist Sans/Mono)
 - Optimized asset loading
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 frontend/
