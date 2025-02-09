@@ -9,7 +9,6 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow: hidden;
 }
 
 body {
@@ -24,12 +23,12 @@ body {
     background-size: cover;
     margin: 0;
     padding: 0;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 0; /* Change from -1 to 0 */
+    z-index: 0;
 }
 
 .content-overlay {

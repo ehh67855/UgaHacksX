@@ -12,7 +12,7 @@ export default function Header() {
         <Navbar bg="dark" variant="dark" expand="md" className="p-3">
             <Navbar.Brand href="/">
                 <Image src={logo} height="40" />
-                MixStash
+                TuneShift
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -64,8 +64,22 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
+
     public List<Project> getProjectsByUserLogin(String login) {
-        return projectRepository.findByOwnerLogin(login);
+        List<Project> projects = projectRepository.findByOwnerLogin(login);
+        // Ensure each project is properly loaded
+        return projects.stream()
+            .map(project -> {
+                Project fullProject = new Project();
+                fullProject.setId(project.getId());
+                fullProject.setName(project.getName());
+                fullProject.setDescription(project.getDescription());
+                fullProject.setOwner(project.getOwner());
+                fullProject.setProjectVersions(project.getProjectVersions());
+                fullProject.setComments(project.getComments());
+                return fullProject;
+            })
+            .collect(Collectors.toList());
     }
 
     public List<ProjectVersion> getVersionsByProjectId(Long projectId) {
@@ -126,5 +140,6 @@ public class ProjectService {
         return projectRepository.findById(projectId)
             .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
     }
+    
 
 }
