@@ -1,10 +1,15 @@
-# UgaHacksX
+# MixStash
+> Like Git -- but for audio engineers.
+
 
 ## Prerequisites
 Ensure you have the following installed on your system:
-- **Maven**: Required for building the backend.
-- **Java 17**: The project is compatible with Java 17.
-- **MySQL**: Required for the database.
+- **Maven**
+- **Java 17**
+- **MySQL**
+- Node.js 18+
+- npm or yarn
+
 
 ## Database Configuration
 
@@ -66,3 +71,50 @@ To reduce boilerplate code, we used Lombok annotations such as `@Data`, `@Requir
 
 ### Security
 We used Spring Security to secure our endpoints. The security configuration ensures that only authenticated users can access certain endpoints. We also implemented role-based access control to differentiate between regular users and administrators.
+
+
+## Tehnical Details of Backend
+
+## 🚀 Technical Stack
+
+### Core Technologies
+- **Next.js 14** - React framework with App Router
+- **React 18** - UI component library
+- **TypeScript** - Static typing for JavaScript
+- **Tailwind CSS** - Utility-first styling
+
+### UI Components
+- **Radix UI** - Headless component primitives
+- **Custom Components**:
+  - Toast notifications
+  - Responsive sidebar
+ 
+### Developer Experience
+- **ESLint** & **Prettier** - Code quality tools
+- **SWC** - Fast bundling and compilation
+
+### Performance Features
+- Server/Client component separation
+- Custom font optimization (Geist Sans/Mono)
+- Optimized asset loading
+
+## 📦 Project Structure
+
+```
+frontend/
+├── src/
+│   ├── app/           # Next.js App Router pages
+│   ├── components/    # React components
+│   │   └── ui/       # Shared UI components
+│   ├── hooks/        # Custom React hooks
+│   ├── lib/          # Utility functions
+│   └── styles/       # Global styles
+```
+
+## Key Features
+- Modern React patterns with TypeScript
+- Component-based architecture
+- Type-safe development
+- Accessibility-first components
+- Toast notification system
+- Responsive design
