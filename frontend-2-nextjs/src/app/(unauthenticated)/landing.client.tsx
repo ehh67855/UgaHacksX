@@ -14,6 +14,7 @@ export {
 import { useTheme } from "next-themes";
 import { Waves } from "@/components/ui/waves-background";
 import { SparklesText } from "@/components/ui/sparkles-text";
+import { siteConfig } from "@/config/site";
 
 function LandingPageClientWaves() {
   const { theme } = useTheme();
@@ -50,7 +51,7 @@ function LandingPageClientWaves() {
           className="relative flex flex-col gap-4 items-center justify-center px-4"
         >
           <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
-            Welcome to TuneStash!
+            Welcome to {siteConfig.name}!
           </div>
           <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
             Your Sound, Your Archive – Store and Share Your Musical Journey.
@@ -93,7 +94,7 @@ export function LandingPageClientAurora() {
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
         <div className="text-3xl md:text-7xl font-bold dark:text-white text-center flex flex-row gap-4 items-center">
-          <SparklesText text="Welcome to TuneStash!" />
+          <SparklesText text={`Welcome to ${siteConfig.name}!`} />
         </div>
         <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
           Your Sound, Your Archive – Store and Share Your Musical Journey.
