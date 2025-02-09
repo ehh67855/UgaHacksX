@@ -31,17 +31,16 @@ SELECT user, host FROM mysql.user WHERE user = 'springuser';
 ```
 
 ## Frontend setup
-Change into the frontend folder and run:
+Change into the `frontend-2-nextjs` folder and run:
 ```sh
 npm install
-npm install -g nx
 ```
 
 ## Starting the application
 1. Start the frontend
 ```sh
-cd frontend
-npm start
+cd frontend-2-nextjs
+npm run dev
 ```
 
 Start the backend
@@ -78,8 +77,8 @@ We used Spring Security to secure our endpoints. The security configuration ensu
 ## Technical Stack
 
 ### Core Technologies
-- **Next.js 14** - React framework with App Router
-- **React 18** - UI component library
+- **Next.js 15** - React framework with App Router
+- **React 19** - UI component library
 - **TypeScript** - Static typing for JavaScript
 - **Tailwind CSS** - Utility-first styling
 
