@@ -8,9 +8,9 @@ export default function LandingPage() {
         <div className="landing-page">
             <div className="content-overlay">
                 <Container className="landing-content">
-                    <h1>Welcome!</h1>
+                    <h1>Welcome to TuneShift!</h1>
                     <br></br>
-                    <p>Your Sound, Your Archive – Store and Share Your Musical Journey.</p>
+                    <p>Your Sound, Your Archive – Store and Share Your Music Versions.</p>
                     <p>Please log in or sign up to continue.</p>
                     <Row className="justify-content-md-center">
                         <Col xs={12} className="landing-buttons">

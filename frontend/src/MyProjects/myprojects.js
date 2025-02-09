@@ -19,13 +19,14 @@ export default function MyProjects() {
             }
         })
             .then(response => {
-                if (!response.ok) {
+                if (!response.ok) { 
                     throw new Error("Failed to load projects.");
                 }
                 return response.json();
             })
             .then(data => {
                 setProjects(data);
+                console.log(data);
                 setLoading(false);
             })
             .catch(error => {
@@ -53,9 +54,6 @@ export default function MyProjects() {
                         <Card>
                             <Card.Body>
                                 <Card.Title>{project.name}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">
-                                    Posted on {project.datePosted}
-                                </Card.Subtitle>
                                 <Card.Text>{project.description}</Card.Text>
                                 <Button 
                                     as={Link} 
