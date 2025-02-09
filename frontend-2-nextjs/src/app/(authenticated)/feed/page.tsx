@@ -9,13 +9,14 @@ import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Feed",
-}
+};
 
 export async function getFeedProjects(): Promise<Project[]> {
   const authToken = await getAuthToken();
-  const response = await fetch(formatApiUrl(`/api/projects`), {
+  const response = await fetch(formatApiUrl("/api/projects"), {
     headers: {
       Authorization: `Bearer ${authToken}`,
+      "Content-Type": "application/json",
     },
     cache: "no-store",
   });

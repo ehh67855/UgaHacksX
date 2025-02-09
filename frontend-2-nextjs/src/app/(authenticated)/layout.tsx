@@ -8,6 +8,10 @@ export default async function AuthenticatedLayoutWithSidebar(
   props: RootLayoutProps
 ) {
   const authToken = await getAuthToken();
+  if (!authToken) {
+    return redirect("/login");
+  }
+
   const userLogin = await getLogin(authToken);
   if (!userLogin) {
     return redirect("/login");

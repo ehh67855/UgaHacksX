@@ -32,7 +32,7 @@ export function PageTemplate(
             </Breadcrumb>
           </div>
 
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row items-center gap-2">
             {props.rightSide}
             <ModeSwitcher />
           </div>

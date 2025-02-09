@@ -7,12 +7,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export {
-  LandingPageClientAurora as LandingPageClient
+  LandingPageClientAurora as LandingPageClient,
   // LandingPageClientWaves as LandingPageClient,
 };
 
 import { useTheme } from "next-themes";
 import { Waves } from "@/components/ui/waves-background";
+import { SparklesText } from "@/components/ui/sparkles-text";
 
 function LandingPageClientWaves() {
   const { theme } = useTheme();
@@ -91,8 +92,8 @@ export function LandingPageClientAurora() {
         }}
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
-        <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
-          Welcome to TuneStash!
+        <div className="text-3xl md:text-7xl font-bold dark:text-white text-center flex flex-row gap-4 items-center">
+          <SparklesText text="Welcome to TuneStash!" />
         </div>
         <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
           Your Sound, Your Archive – Store and Share Your Musical Journey.

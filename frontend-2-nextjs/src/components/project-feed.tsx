@@ -21,6 +21,14 @@ export function ProjectFeed({
 }) {
   const [projects] = useState(initialProjects);
 
+  if (projects.length === 0) {
+    return (
+      <p className="text-center text-muted-foreground">
+        No projects have been uploaded yet. Be the first to upload one!
+      </p>
+    );
+  }
+
   return (
     <div className="space-y-4">
       {projects.map((project) => (
