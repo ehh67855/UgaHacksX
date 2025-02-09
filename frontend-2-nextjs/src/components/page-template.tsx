@@ -7,6 +7,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { cn } from "@/lib/utils";
+import { ModeSwitcher } from "./mode-switcher";
 
 export function PageTemplate(
   props: RootLayoutProps & {
@@ -31,10 +32,16 @@ export function PageTemplate(
             </Breadcrumb>
           </div>
 
-          <div>{props.rightSide}</div>
+          <div className="flex flex-row gap-2">
+            {props.rightSide}
+            <ModeSwitcher />
+          </div>
         </div>
       </header>
-      <div className={cn("p-4", props.className)}>{props.children}</div>
+      <div className={cn("p-4", props.className)}>
+        <h1 className="text-3xl font-bold text-center mb-8">{props.name}</h1>
+        {props.children}
+      </div>
     </>
   );
 }

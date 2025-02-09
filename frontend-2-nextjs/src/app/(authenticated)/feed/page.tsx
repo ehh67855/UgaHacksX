@@ -5,7 +5,6 @@ import { ProjectFeed } from "@/components/project-feed";
 import { getAuthToken } from "@/services/BackendService";
 import type { Project } from "@/types/project";
 import { formatApiUrl } from "@/lib/utils";
-
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {

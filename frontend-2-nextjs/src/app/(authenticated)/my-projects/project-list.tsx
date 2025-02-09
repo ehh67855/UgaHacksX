@@ -137,7 +137,7 @@ export function ProjectList({ userLogin }: { userLogin: string }) {
           </CardContent>
           <CardFooter className="flex flex-row gap-2">
             <Button asChild>
-              <Link href={`/project/${project.id}`}>
+              <Link href={`/my-projects/${project.id}/versions`}>
                 <Info />
                 View Info
               </Link>

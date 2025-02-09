@@ -31,9 +31,7 @@ export default function VersionHistory({
                   size="sm"
                   onClick={() =>
                     window.open(
-                      formatApiUrl(
-                        `/api/projects/versions/${version.id}/download`
-                      )
+                      formatApiUrl(`/api/projects/download/${version.id}`)
                     )
                   }
                 >

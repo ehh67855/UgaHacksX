@@ -4,12 +4,11 @@ import { getVersions } from "./data";
 import { VersionList } from "./version-list";
 import { UploadForm } from "./upload-form";
 import { PageTemplate } from "@/components/page-template";
-
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "My Project",
-}
+};
 
 export default async function VersionsPage({
   params,
@@ -34,8 +33,6 @@ export default async function VersionsPage({
 
   return (
     <PageTemplate name="Version Uploads">
-      <h1 className="text-3xl font-bold text-center mb-8">Version Uploads</h1>
-
       <Suspense fallback={<div>Loading upload form...</div>}>
         <UploadForm projectId={id} />
       </Suspense>

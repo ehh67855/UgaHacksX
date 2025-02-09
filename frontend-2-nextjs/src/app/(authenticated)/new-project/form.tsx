@@ -86,12 +86,9 @@ export function NewProjectForm() {
   };
 
   return (
-    <div className="flex justify-center items-center p-4">
-      <Card className="w-full max-w-lg p-6 shadow-lg">
+    <div className="flex justify-center items-center">
+      <Card className="w-full max-w-lg px-0 py-4 shadow-lg">
         <CardContent>
-          <h1 className="text-2xl font-bold text-center mb-4">
-            Add New Project
-          </h1>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField

@@ -5,6 +5,7 @@ import { getUserData } from "./data";
 import { redirect } from "next/navigation";
 import { PageTemplate } from "@/components/page-template";
 import { type Metadata } from "next";
+import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Edit Profile",
@@ -22,8 +23,10 @@ export default async function EditProfilePage() {
   return (
     <PageTemplate name="Edit Profile">
       <Suspense fallback={<div>Loading...</div>}>
-        <div className="sm:w-1/2">
-          <EditProfileForm initialData={userData} userLogin={userLogin} />
+        <div className="sm:w-1/2 flex flex-col mx-auto">
+          <Card className="p-4">
+            <EditProfileForm initialData={userData} userLogin={userLogin} />
+          </Card>
         </div>
       </Suspense>
     </PageTemplate>

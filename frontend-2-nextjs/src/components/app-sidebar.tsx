@@ -52,7 +52,9 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{siteConfig.name}</span>
+                  <span className="truncate font-semibold">
+                    {siteConfig.name}
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>

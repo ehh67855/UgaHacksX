@@ -16,6 +16,9 @@ export interface ProjectVersion {
 export interface Comment {
   id: number;
   content: string;
-  userLogin: string;
+  author: {
+    firstName: string;
+    lastName: string;
+  };
   createdAt: Date;
 }

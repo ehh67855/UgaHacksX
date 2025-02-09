@@ -27,44 +27,9 @@ export async function getVersions(
   if (!res.ok) throw new Error("Failed to fetch versions");
   const responseJson: ApiResponse[] = await res.json();
 
-  const versions: ProjectVersion[] = [];
+  console.log("^^responseJson: ", responseJson);
 
-  // Process the latest version
-  if (responseJson[0] && typeof responseJson[0] === "object") {
-    const latestVersion = responseJson[0];
-    versions.push({
-      id: latestVersion.id,
-      name: latestVersion.name,
-    });
-
-    // Process older versions
-    if (
-      latestVersion.project &&
-      Array.isArray(latestVersion.project.projectVersions)
-    ) {
-      latestVersion.project.projectVersions.forEach(
-        (version: ApiVersion | number) => {
-          if (typeof version === "object" && version.id !== latestVersion.id) {
-            versions.push({
-              id: version.id,
-              name: version.name,
-            });
-          }
-        }
-      );
-    }
-  }
-
-  // Process any additional versions that might be directly in the array
-  for (let i = 1; i < responseJson.length; i++) {
-    const version = responseJson[i];
-    if (typeof version === "object") {
-      versions.push({
-        id: version.id,
-        name: version.name,
-      });
-    }
-  }
+  const versions: ProjectVersion[] = responseJson;
 
   return versions;
 }

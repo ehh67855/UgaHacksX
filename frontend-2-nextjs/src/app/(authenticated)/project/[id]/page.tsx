@@ -10,18 +10,19 @@ import {
   getProjectComments,
 } from "./data";
 import { PageTemplate } from "@/components/page-template";
-
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "View Project",
-}
+};
 
 export default async function ViewProjectPage({
   params,
 }: {
   params: { id: string };
 }) {
+  const { id } = await params;
+
   const token = await getAuthToken();
   if (!token) {
     throw new Error("No token");
@@ -33,9 +34,9 @@ export default async function ViewProjectPage({
 
   try {
     const [project, versions, comments] = await Promise.all([
-      getProjectDetails(params.id, token),
-      getProjectVersions(params.id, token),
-      getProjectComments(params.id, token),
+      getProjectDetails(id, token),
+      getProjectVersions(id, token),
+      getProjectComments(id, token),
     ]);
 
     if (!project) {
@@ -50,7 +51,7 @@ export default async function ViewProjectPage({
         </Suspense>
         <Suspense fallback={<div>Loading comments...</div>}>
           <CommentSection
-            projectId={params.id}
+            projectId={id}
             initialComments={comments}
             isLoggedIn={!!token}
             currentUser={currentUser}

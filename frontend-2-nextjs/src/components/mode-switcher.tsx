@@ -14,7 +14,7 @@ export function ModeSwitcher() {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       className="group/toggle h-8 w-8 px-0"
       onClick={toggleTheme}
     >

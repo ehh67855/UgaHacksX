@@ -12,11 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types/project";
-import { UserData } from "@/types/user";
-
-function formatOwnerName(owner: UserData) {
-  return `${owner.firstName} ${owner.lastName}`;
-}
+import { formatOwnerName } from "@/lib/utils";
 
 export function ProjectFeed({
   initialProjects,

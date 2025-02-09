@@ -12,7 +12,7 @@ import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Signup Confirmation",
-}
+};
 
 export default function SignupConfirmationPage() {
   return (

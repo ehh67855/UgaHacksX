@@ -1,10 +1,8 @@
 import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { geistMono, geistSans } from "@/lib/fonts";
-import { ToastProvider } from "@/components/ui/toast";
 import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "@/components/providers";
-import { ModeSwitcher } from "@/components/mode-switcher";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
