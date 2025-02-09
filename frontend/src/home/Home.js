@@ -23,6 +23,7 @@ export default function Home() {
             if (response.ok) {
                 const data = await response.json();
                 setProjects(data);
+                console.log(data);
             } else {
                 setError('Failed to fetch projects');
             }

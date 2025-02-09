@@ -57,6 +57,7 @@ export default function NewProject() {
         }
 
         setIsLoading(false);
+        
     };
 
     return (

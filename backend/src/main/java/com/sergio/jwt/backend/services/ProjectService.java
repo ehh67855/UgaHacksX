@@ -94,7 +94,39 @@ public class ProjectService {
     }
 
     public List<Project> getAllProjects() {
-        return projectRepository.findAll();
+        List<Project> projects = projectRepository.findAll();
+        return projects.stream()
+            .map(project -> {
+                Project cleanProject = new Project();
+                cleanProject.setId(project.getId());
+                cleanProject.setName(project.getName());
+                cleanProject.setDescription(project.getDescription());
+                
+                // Create a clean user object with minimal information
+                User cleanUser = new User();
+                cleanUser.setId(project.getOwner().getId());
+                cleanUser.setLogin(project.getOwner().getLogin());
+                cleanUser.setFirstName(project.getOwner().getFirstName());
+                cleanUser.setLastName(project.getOwner().getLastName());
+                cleanProject.setOwner(cleanUser);
+                
+                // Map project versions with minimal information
+                List<ProjectVersion> cleanVersions = project.getProjectVersions().stream()
+                    .map(version -> {
+                        ProjectVersion cleanVersion = new ProjectVersion();
+                        cleanVersion.setId(version.getId());
+                        cleanVersion.setName(version.getName());
+                        return cleanVersion;
+                    })
+                    .collect(Collectors.toList());
+                cleanProject.setProjectVersions(cleanVersions);
+                
+                // Map comments if needed
+                cleanProject.setComments(project.getComments());
+                
+                return cleanProject;
+            })
+            .collect(Collectors.toList());
     }
 
     public ProjectVersion addProjectVersion(Long projectId, MultipartFile file) {
