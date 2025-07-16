@@ -1,5 +1,5 @@
-import { JwtPayload } from 'jwt-decode'
+import { JwtPayload } from "jwt-decode";
 
 export interface CustomJwtPayload extends JwtPayload {
-    role?: string;
+  role?: string;
 }
